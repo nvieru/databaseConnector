@@ -13,15 +13,19 @@ public class DatabaseConnector {
     }
 
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
+        //se incarca driver-ul pentru sqlite
         Class.forName("org.sqlite.JDBC");
+        //se ia calea catre fisierul de sqlite
         String path = DatabaseConnector.class.getClassLoader().getResource(DATABASE).getPath();
 
         if (connection == null) {
+            //se creaza conexiunea catre baza de date
             connection = DriverManager.getConnection("jdbc:sqlite:" + path);
         }
         return connection;
     }
 
+    //inchiderea conexiunii
     public static void closeConnection() throws SQLException {
         if(connection!=null)
             connection.close();
